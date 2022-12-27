@@ -1,0 +1,106 @@
+package firsttestngpackage;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.Reporter;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
+
+public class Singup1cabily {
+	public WebDriver driver;
+	public String baseUrl="https://cabily-e.zoplay.com/rider/signup?data=KzkxJiY4ODI1NjQ0MDE2&";
+	String Driverpath="C:\\Users\\user65\\Downloads\\chromedriver_win32\\chromedriver.exe";
+	String[] invalidChars = {"#", "!", "$", "@", "%", "^", "&"};
+    String name = "acbcdefghijklmnopqrstuvwxyz";
+    
+  //register page of firstname with valid and invalid data negative scenario
+	
+	@Test
+  public void FirstnameNegative() throws Exception  {
+		
+		 String spclChar= "!@#$%^&*_-:;,";
+	     String vin = "";
+	     Random random = new Random();
+	     for (int i = 0; i < 3; i++) {
+	         char c = spclChar.charAt(random.nextInt(spclChar.length()));
+	         vin+=c;
+	     }
+			driver.findElement(By.name("user_name")).clear();
+			driver.findElement(By.name("user_name")).sendKeys(name + vin);
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//input[@class='acc_creat securityCheck']")).click();
+			String expectedErrorMsg="Please enter only alphabets";
+			WebElement exp=driver.findElement(By.xpath("//label[contains(text(),'Please enter only alphabets')]"));
+			String actualErrorMsg=exp.getText();
+		   Assert.assertEquals(actualErrorMsg, expectedErrorMsg);	
+		   screenCapture();
+		   System.out.println("Ok tested");	
+		   Thread.sleep(1000);
+  }
+	//register page of firstname with empty values checking  negative scenario
+	@	Test
+	public void FirstnameNegative1() throws Exception{
+		driver.findElement(By.name("user_name")).clear();
+		Thread.sleep(1000);
+		driver.findElement(By.name("user_name")).sendKeys("");
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//input[@class='acc_creat securityCheck']")).click();
+		String  expectedErrorMsg="This field is required.";
+		WebElement exp=driver.findElement(By.xpath("//div[3]//label[1]"));
+		String actualErrorMsg=exp.getText();
+		Assert.assertEquals(actualErrorMsg, expectedErrorMsg);
+		screenCapture();
+		System.out.println("ok bro");
+		
+	}
+  @BeforeClass
+  public void beforeClass() {
+  }
+
+  @AfterClass
+  public void afterClass() {
+  }
+
+  @BeforeTest
+  public void beforeTest() {
+	  System.setProperty("webdriver.chrome.driver", Driverpath);
+	  driver=new ChromeDriver();
+	  driver.manage().window().maximize();
+	  driver.manage().deleteAllCookies();
+	  driver.get(baseUrl);
+	  driver.manage().timeouts().implicitlyWait(25 , TimeUnit.SECONDS);
+	  driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+	  
+  }
+  public void screenCapture() throws IOException{
+		 File SrcFile=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		  File screenshotName=new File ("D:\\slm\\DemoTestNgProject\\screenshots\\"+"firstname.png");
+		  FileUtils.copyFile(SrcFile, screenshotName);
+		  Reporter.log("<br><img src='"+screenshotName+"'height='300' width='300'/><br>");	
+		
+		
+	}
+  @AfterTest
+  public void afterTest()throws Exception {
+	  Thread.sleep(2000);
+	driver.close();
+	  
+	  
+  }
+
+}

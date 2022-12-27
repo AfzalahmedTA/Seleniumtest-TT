@@ -1,0 +1,26 @@
+package Logintesting;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+
+public class TC_04LOGOtest {
+  @Test
+  public void Trestcase() {
+	  
+	  
+	  
+  }
+  
+  @BeforeTest
+  public void beforeTest() {
+	  System.setProperty("webdriver.chrome.driver", Driverpath);
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.get(baseUrl);
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+  }
+}

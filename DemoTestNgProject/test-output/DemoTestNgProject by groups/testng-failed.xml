@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [DemoTestNgProject by groups]">
+  <test thread-count="5" name="GRP-test-group,test-group1(failed)">
+    <groups>
+      <run>
+        <include name="test-group"/>
+        <include name="test-group1"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="firsttestngpackage.RegisterCabilyex">
+        <methods>
+          <include name="Validation"/>
+          <include name="Validation4"/>
+          <include name="Validation3"/>
+          <include name="Validation2"/>
+          <include name="Validation1"/>
+          <include name="Singup1"/>
+          <include name="Singup3"/>
+          <include name="Singup4"/>
+          <include name="Singup2"/>
+        </methods>
+      </class> <!-- firsttestngpackage.RegisterCabilyex -->
+    </classes>
+  </test> <!-- GRP-test-group,test-group1(failed) -->
+</suite> <!-- Failed suite [DemoTestNgProject by groups] -->

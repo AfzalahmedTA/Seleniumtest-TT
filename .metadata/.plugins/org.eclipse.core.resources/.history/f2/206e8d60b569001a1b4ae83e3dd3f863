@@ -1,0 +1,13 @@
+package firsttestngpackage;
+import org.openqa.selenium.*;
+import org.testng.annotations.Test;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class DemoB {
+  @Test
+  public void run() {
+  WebDriver driver=new ChromeDriver();
+  
+  
+  
+  }
+}

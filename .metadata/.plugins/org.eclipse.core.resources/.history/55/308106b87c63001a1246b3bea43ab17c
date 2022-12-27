@@ -1,0 +1,18 @@
+package firsttestngpackage;
+
+import java.util.Properties;
+
+public class Sendemail {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Properties props =new Properties();
+		 
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		
+      
+		
+		
+	}
+
+}

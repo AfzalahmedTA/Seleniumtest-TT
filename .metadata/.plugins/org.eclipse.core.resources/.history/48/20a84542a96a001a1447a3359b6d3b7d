@@ -1,0 +1,9 @@
+package Logintesting;
+
+public class Democ {
+	public static void main (String args[]){
+        String string = "ADACADABRA";
+        string = string.replace("CADA", "");
+        System.out.println(string);
+    }
+}

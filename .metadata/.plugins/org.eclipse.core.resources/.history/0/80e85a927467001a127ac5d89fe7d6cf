@@ -1,0 +1,113 @@
+package firsttestngpackage;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterTest;
+
+public class CabilyTestNG {
+	public String baseUrl="https://ecabily-testing.zoplay.com/v1.0/driver/signup";
+	String Driverpath="C:\\Users\\user65\\Downloads\\chromedriver_win32\\chromedriver.exe";
+	public WebDriver driver;
+	String mail="ahmed@casperon.in";
+	String mail1="afsalahmed@casperon.in";
+	Random randomGenerator = new Random();  
+	int randomInt = randomGenerator.nextInt(1000); 
+	String ran=("Testcabily"+randomInt+"@gmail.com");
+	 WebDriverWait wait = new WebDriverWait(driver,20);
+	
+  @Test(priority=0)
+  public void login()throws Exception {
+	  WebElement dwd=driver.findElement(By.id("country_code"));
+	  Select sel=new Select(dwd);
+	  sel.selectByIndex(100);
+	  int num1, num2, num3;
+		 int set3, set4; 
+		 Random generator = new Random();
+		 num1 = generator.nextInt(6) +2; 
+		  num2 = generator.nextInt(8);
+		 num3 = generator.nextInt(8);
+		 set3 = generator.nextInt(643) + 100;
+		 set4 = generator.nextInt(8999) + 1000;
+		 String Key=("(" + num1 + "" + num2 + "" + num3 + ")" + "-" + set3 + "-" + set4 );
+	  driver.findElement(By.id("mobile_number")).sendKeys(Key);
+	  Thread.sleep(1000);
+	  driver.findElement(By.xpath("//input[@id='otp_send_btn']")).click();
+	  Thread.sleep(2000);
+	  String data=driver.findElement(By.xpath("//span[@id='temp_otp']")).getText();
+	  String regex = "([0-9]+)";
+	  Pattern pattern = Pattern.compile(regex);
+	  Matcher matcher = pattern.matcher(data);
+	  while(matcher.find()) {
+		 
+	       wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='mobile_otp']")));
+	       driver.findElement(By.xpath("//input[@id='mobile_otp']")).sendKeys(matcher.group());
+	
+	  }
+		 
+	  Thread.sleep(1000);
+	  driver.findElement(By.xpath("//input[@class='verify_btn otp_btn']")).click(); 
+	  Thread.sleep(2000);
+  }
+  @Test(priority=1)
+  public  void register() throws Exception{
+	 WebElement city=driver.findElement(By.id("driver_location"));
+	 Select ct=new Select(city);
+	 ct.selectByIndex(1);
+	 String alphabet= "abcdefghijklmnopqrstuvwxyz";
+     String s = "";
+     Random random = new Random();
+     for (int i = 0; i < 5; i++) {
+         char c = alphabet.charAt(random.nextInt(alphabet.length()));
+         s+=c;
+     }
+	 driver.findElement(By.xpath("//input[@id='first_name']")).sendKeys(s);
+	  
+	  driver.findElement(By.xpath("//input[@id='last_name']")).sendKeys("Cabily");
+	  
+	  driver.findElement(By.xpath("//input[@id='email']")).sendKeys(ran);
+	  WebElement gender=driver.findElement(By.xpath("//select[@id='gender']"));
+	  Select gen=new Select(gender);
+	  gen.selectByIndex(1);
+	  driver.findElement(By.xpath("//input[@id='dob-date']")).click();
+	  driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[3]/table[1]/thead[1]/tr[1]/th[2]")).click();
+	  driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[4]/table[1]/thead[1]/tr[1]/th[2]")).click();
+	  driver.findElement(By.xpath("//span[contains(text(),'1995')]")).click();
+	  driver.findElement(By.xpath("//div[1]//div[4]//span[7]")).click();
+	  driver.findElement(By.xpath("//div[1]//tr[3]//td[7]")).click();
+	  Thread.sleep(1000);  
+  }
+  @Test(priority=2)
+public void register1()throws Exception {
+	  driver.findElement(By.xpath("//input[@id='address']")).sendKeys("No:25 abc street Abc nagar");
+	  Select drop=new Select(driver.findElement(By.id("county")));
+	  drop.selectByVisibleText("India");
+	  Thread.sleep(1000);
+	  driver.findElement(By.xpath("//input[@id='state']")).sendKeys("Tamilnadu");
+	  driver.findElement(By.xpath("//input[@id='city']")).sendKeys("Chennai");
+	  driver.findElement(By.xpath("//input[@id='postal_code']")).sendKeys("600001");
+Thread.sleep(1000);
+WebElement im=driver.findElement(By.id("thumbnail"));
+	  im.sendKeys("D:\\Afsal\\iot.jpg");
+Thread.sleep(1000);
+	  WebElement vehim=driver.findElement(By.id("vehicle_image"));
+vehim.sendKeys("D:\\Afsal\\bike.jpg");
+Thread.sleep(2000);  
+  }  
+  @Test(priority=3)
+ 

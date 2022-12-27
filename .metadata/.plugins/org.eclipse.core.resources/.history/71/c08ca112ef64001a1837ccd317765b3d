@@ -1,0 +1,208 @@
+package firsttestngpackage;
+
+import org.testng.annotations.Test;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.File;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
+
+public class Registercabily {
+	public WebDriver driver;//https://ecabily-testing.zoplay.com/v1.0/rider/signup?data=KzkxJiY4ODI1NjQ0MDE5&
+	public String baseUrl="https://ecabily-testing.zoplay.com/v1.0/rider/signup?data=KzkxJiY4ODI1NjQ0MDE4&";
+	String Driverpath="C:\\Users\\user65\\Downloads\\chromedriver_win32\\chromedriver.exe";
+	HSSFWorkbook workbook;
+	HSSFSheet sheet;
+	HSSFCell cell;
+	WebDriverWait wait;
+	File  src=new File("D:\\Afsal\\Cabilydatain.xls");
+	
+  @Test(priority=0)
+  public void Testcase() throws IOException,Exception{
+	  FileInputStream finput=new FileInputStream(src);
+	  workbook=new HSSFWorkbook(finput);
+	  sheet=workbook.getSheet("Sheet2");
+	  for(int i=1;i<=1;i++) {
+		  //import email
+		  cell=sheet.getRow(i).getCell(0);
+		  cell.setCellType(Cell.CELL_TYPE_STRING);
+		  driver.findElement(By.name("email")).clear();
+		  driver.findElement(By.name("email")).sendKeys(cell.getStringCellValue());
+		  Thread.sleep(1000);
+		  //import username
+           cell=sheet.getRow(i).getCell(1);
+           cell.setCellType(Cell.CELL_TYPE_STRING);
+		  driver.findElement(By.name("user_name")).clear();
+		  driver.findElement(By.name("user_name")).sendKeys(cell.getStringCellValue());
+		  Thread.sleep(1000);
+		  //import lastname
+		  cell=sheet.getRow(i).getCell(2);
+		  cell.setCellType(Cell.CELL_TYPE_STRING);
+		  driver.findElement(By.name("last_name")).clear();
+		  driver.findElement(By.name("last_name")).sendKeys(cell.getStringCellValue());
+		  Thread.sleep(1000);
+		  wait=new WebDriverWait(driver,20);
+		  WebElement create=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class='acc_creat securityCheck']")));
+		  create.click();
+		  FileOutputStream foutput=new FileOutputStream(src);
+		  String message=driver.findElement(By.xpath("//label[contains(text(),'Please enter a valid email address.')]")).getText();
+		  sheet.getRow(1).createCell(3).setCellValue(message);
+            workbook.write(foutput);
+            foutput.close();
+            Thread.sleep(2000);
+	  }
+	  
+	  
+  }
+  @Test(priority=1)
+  public void Testcase1() throws IOException,Exception{
+	  FileInputStream finput=new FileInputStream(src);
+	  workbook=new HSSFWorkbook(finput);
+	  sheet=workbook.getSheet("Sheet2");
+	 
+	  for(int i=2;i<=2;i++) {
+		  //import email
+		  cell=sheet.getRow(i).getCell(0);
+		  cell.setCellType(Cell.CELL_TYPE_STRING);
+		  driver.findElement(By.name("email")).clear();
+		  driver.findElement(By.name("email")).sendKeys(cell.getStringCellValue());
+		  Thread.sleep(1000);
+		  //import username
+           cell=sheet.getRow(i).getCell(1);
+           cell.setCellType(Cell.CELL_TYPE_STRING);
+		  driver.findElement(By.name("user_name")).clear();
+		  driver.findElement(By.name("user_name")).sendKeys(cell.getStringCellValue());
+		  
+		  Thread.sleep(1000);
+		  //import lastname
+		  cell=sheet.getRow(i).getCell(2);
+		  cell.setCellType(Cell.CELL_TYPE_STRING);
+		  driver.findElement(By.name("last_name")).clear();
+		  driver.findElement(By.name("last_name")).sendKeys(cell.getStringCellValue());
+		  Thread.sleep(1000);
+		  wait=new WebDriverWait(driver,20);
+		  WebElement create=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class='acc_creat securityCheck']")));
+		  create.click();
+		  String message1=driver.findElement(By.xpath("//label[contains(text(),'Please enter only alphabets')]")).getText();
+          sheet.getRow(2).createCell(3).setCellValue(message1);
+		  FileOutputStream foutput=new FileOutputStream(src);
+		  workbook.write(foutput);
+          foutput.close();
+          Thread.sleep(2000);
+	  }
+	  
+  }
+  @Test(priority=2)
+  public void Testcase2() throws IOException,Exception{
+	
+	  FileInputStream finput=new FileInputStream(src);
+	  workbook=new HSSFWorkbook(finput);
+	  sheet=workbook.getSheet("Sheet2");
+	  for(int i=3;i<=4;i++) {
+		  //import email
+		  cell=sheet.getRow(i).getCell(0);
+		  cell.setCellType(Cell.CELL_TYPE_STRING);
+		  driver.findElement(By.name("email")).clear();
+		  driver.findElement(By.name("email")).sendKeys(cell.getStringCellValue());
+		  Thread.sleep(1000);
+		  //import username
+           cell=sheet.getRow(i).getCell(1);
+           cell.setCellType(Cell.CELL_TYPE_STRING);
+		  driver.findElement(By.name("user_name")).clear();
+		  driver.findElement(By.name("user_name")).sendKeys(cell.getStringCellValue());
+		  Thread.sleep(1000);
+		  //import lastname
+		  cell=sheet.getRow(i).getCell(2);
+		  cell.setCellType(Cell.CELL_TYPE_STRING);
+		  driver.findElement(By.name("last_name")).clear();
+		  driver.findElement(By.name("last_name")).sendKeys(cell.getStringCellValue());
+		  Thread.sleep(1000);
+		  wait=new WebDriverWait(driver,25);
+		  WebElement create=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class='acc_creat securityCheck']")));
+		  create.click();
+		  String mess="afsal@gmail.com lready exist";
+		  String message2=driver.findElement(By.xpath("//div[4]//label[1]"));
+		  WebElement Errormsg=wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("mailErr")));     
+		  if(Errormsg.getText().equalsIgnoreCase(mess)) {
+			  System.out.println("the ok");
+		 }else {
+			 String mess="afsal@gmail.com lready exist";
+		  String message2=driver.findElement(By.xpath("//div[4]//label[1]")).getText();
+          sheet.getRow(3).createCell(3).setCellValue(message2);
+		  FileOutputStream foutput=new FileOutputStream(src);
+		  workbook.write(foutput);
+          foutput.close();
+          System.out.println("ok ");
+		 }
+          Thread.sleep(2000);
+	  }
+  }
+  
+  @Test(priority=3)
+public void Testcase3() throws IOException,Exception{
+	
+	  FileInputStream finput=new FileInputStream(src);
+	  workbook=new HSSFWorkbook(finput);
+	  sheet=workbook.getSheet("Sheet2");
+  for(int i=5;i<=5;i++) {
+	  cell=sheet.getRow(i).getCell(0);
+	  cell.setCellType(Cell.CELL_TYPE_STRING);
+	  driver.findElement(By.name("email")).clear();
+	  driver.findElement(By.name("email")).sendKeys(cell.getStringCellValue());
+	  Thread.sleep(1000);
+	  cell=sheet.getRow(i).getCell(1);	  
+	  cell.setCellType(Cell.CELL_TYPE_STRING);
+	  driver.findElement(By.name("user_name")).clear();
+	  driver.findElement(By.name("user_name")).sendKeys(cell.getStringCellValue());
+	  Thread.sleep(1000);
+	  cell=sheet.getRow(i).getCell(2);	  
+	  cell.setCellType(Cell.CELL_TYPE_STRING);
+	  driver.findElement(By.name("last_name")).clear();
+	  driver.findElement(By.name("last_name")).sendKeys(cell.getStringCellValue());
+	  Thread.sleep(1000);
+	  wait=new WebDriverWait(driver,30);
+	  WebElement create=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class='acc_creat securityCheck']")));
+	  create.click();
+	  String message=driver.findElement(By.className("default")).getText();
+	  FileOutputStream foutput=new FileOutputStream(src);
+      sheet.getRow(i).createCell(3).setCellValue(message);
+      workbook.write(foutput);
+      foutput.close();
+	  
+  }
+  
+  
+  }
+  @BeforeTest
+  public void beforeTest() {
+	  System.setProperty("webdriver.chrome.driver", Driverpath);
+	  driver=new ChromeDriver();
+	  driver.manage().window().maximize();
+	  driver.manage().deleteAllCookies();
+	  driver.get(baseUrl);
+	  driver.manage().timeouts().implicitlyWait(25 , TimeUnit.SECONDS);
+	  driver.manage().timeouts().pageLoadTimeout(50, TimeUnit.SECONDS);
+	  
+  }
+
+  @AfterTest
+  public void afterTest() throws Exception{
+	  Thread.sleep(1000);
+	  driver.close();
+  }
+
+}

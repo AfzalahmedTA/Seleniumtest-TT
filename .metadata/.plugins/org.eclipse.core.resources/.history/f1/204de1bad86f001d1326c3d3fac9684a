@@ -1,0 +1,26 @@
+package Evmobility.evmobility;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+public class ev {
+  public static void main(String[] args) throws InterruptedException {
+	  
+	  WebDriverManager.chromedriver().setup();
+	  WebDriver driver =new ChromeDriver();
+	  driver.manage().window().maximize();
+	  driver.get("http://192.168.1.244/dedicated/ev-mobility/ev-config");
+	  Thread.sleep(5000);
+
+	driver.findElement(By.xpath("//*[@id=\"login-form\"]/div/div[2]/input")).sendKeys("support@evmobility.com");
+	Thread.sleep(5000);
+	driver.findElement(By.name("admin_password")).sendKeys("admin@123");
+	Thread.sleep(5000);
+	driver.findElement(By.xpath("//*[@id=\"login-form\"]/div/button")).click();
+	
+	//*[@id="login-form"]/div/button
+  }
+}

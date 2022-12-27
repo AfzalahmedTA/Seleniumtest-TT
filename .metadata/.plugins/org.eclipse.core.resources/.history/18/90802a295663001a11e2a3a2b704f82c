@@ -1,0 +1,35 @@
+package firsttestngpackage;
+import java.io.IOException;
+
+import org.openqa.selenium.By;
+import org.testng.Reporter;
+import org.testng.annotations.Test;
+
+public class Afsalcap extends {
+  @Test(priority=0)
+  public void  testingCabily()throws InterruptedException,IOException {
+  driver.get(baseUrl);
+Reporter.log("cabily will open");  
+driver.findElement(By.name("admin_name")).clear();
+  driver.findElement(By.name("admin_name")).sendKeys("admindemo");
+  driver.findElement(By.name("admin_password")).clear();
+  driver.findElement(By.name("admin_password")).sendKeys("admindemo@");
+  Thread.sleep(1000);
+  driver.findElement(By.xpath("//form[@id='admin_login_form']//input[@class='login_btn blue_lgel']")).click();
+  screenCapture();
+  }
+@Test(priority=1)
+public void testcase() throws Exception {
+
+}
+@Test(priority=2)
+public void testcas()throws Exception{
+	
+	
+}
+
+}
+
+
+
+

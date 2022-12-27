@@ -1,0 +1,225 @@
+package firsttestngpackage;
+
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import org.testng.annotations.BeforeClass;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.Reporter;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
+
+public class RegisterCabilyex {
+	public WebDriver driver;
+	public String baseUrl="https://cabily-e.zoplay.com/rider/signup?data=KzkxJiY4ODI1NjQ0MDE2&";
+	String Driverpath="C:\\Users\\user65\\Downloads\\chromedriver_win32\\chromedriver.exe";
+	String name = "acbcdefghijklmnopqrstuvwxyz";
+	SoftAssert softassert1=new SoftAssert();
+	SoftAssert softassert2=new SoftAssert();
+	
+	//scenario1
+	//register with invalid data on all fields.
+  @Test(priority=0)
+  public void Singup1()throws Exception {
+	  driver.findElement(By.name("email")).sendKeys("():;<>ahmed@gmail.com/");
+	  Thread.sleep(1000);
+	  driver.findElement(By.name("user_name")).sendKeys("Ahmed@!#$1234454_-");
+	  Thread.sleep(1000);
+	  driver.findElement(By.name("last_name")).sendKeys("Afs@$%%al1254@()<>");
+	  Thread.sleep(1000);
+	  driver.findElement(By.name("referal_code")).sendKeys("HDJAHS-AKSFH244");
+	  Thread.sleep(1000); 
+	  screenCapture();
+	  }
+  @Test(priority=1)
+  public void Validation()throws Exception {
+	  driver.findElement(By.xpath("//input[@class='acc_creat securityCheck']")).click();
+	  String expectedErrorMsg1="Please enter a valid email address.";
+	  WebElement exp1=driver.findElement(By.xpath("//label[contains(text(),'Please enter a valid email address.')]"));
+	  String actualErrorMsg1=exp1.getText();
+	  Assert.assertEquals(actualErrorMsg1, expectedErrorMsg1);
+	  System.out.println("ok 1");
+	  Thread.sleep(1000);
+	  String expectedErrorMsg2="Please enter only alphabets";
+	  WebElement exp2=driver.findElement(By.xpath("//label[contains(text(),'Please enter only alphabets')]"));
+	  String actualErrorMsg2=exp2.getText();
+	  Assert.assertEquals(actualErrorMsg2, expectedErrorMsg2);
+	  System.out.println("ok 2");
+	  Thread.sleep(1000);
+	  String expectedErrorMsg3="Please enter only alphabets";
+	  WebElement exp3=driver.findElement(By.xpath("//div[4]//label[1]"));
+	  String actualErrorMsg3=exp3.getText();
+	  Assert.assertEquals(actualErrorMsg3, expectedErrorMsg3);
+	  System.out.println("ok 3");
+	  Thread.sleep(1000);      
+  }
+  
+//register with already exist mail
+      @Test(priority=2)
+      public void Singup2()throws Exception {
+    	  driver.navigate().refresh();
+    	  Thread.sleep(1000);
+    	  driver.findElement(By.name("email")).sendKeys("ahmed@casperon.in");
+    	  Thread.sleep(1000);
+    	  driver.findElement(By.name("user_name")).sendKeys("Afsal ahmed");
+    	  Thread.sleep(1000);
+    	  driver.findElement(By.name("last_name")).sendKeys("ASHJDGH");
+    	  Thread.sleep(1000);
+    	  driver.findElement(By.name("referal_code")).sendKeys("sdhj47ashu");
+    	  Thread.sleep(1000);  	  
+    	  screenCapture();
+      }
+  @Test(priority=3)
+  public void Validation1() throws Exception{
+	  driver.findElement(By.xpath("//input[@class='acc_creat securityCheck']")).click();
+	  String expectedErrorMsg="ahmed@casperon.in already exist";
+	  WebDriverWait wait=new WebDriverWait(driver,10);
+	  WebElement mailbox=wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("mailErr")));
+	 String actualErrorMsg= mailbox.getText();
+	 Assert.assertEquals(actualErrorMsg, expectedErrorMsg);
+	 System.out.println("ok 4");
+	 Thread.sleep(2000);
+	 screenCapture();
+	
+	   
+  }
+  //register with invalid referral code 
+ @Test(priority=4)
+ public void Singup3() throws Exception{
+	driver.navigate().refresh();
+	Thread.sleep(1000);
+	driver.findElement(By.name("email")).sendKeys("cabily@casperon.in");
+	Thread.sleep(1000);
+	driver.findElement(By.name("user_name")).sendKeys("afsal ");
+	Thread.sleep(1000);
+	driver.findElement(By.name("last_name")).sendKeys("ahmed");
+	Thread.sleep(1000);
+	driver.findElement(By.name("referal_code")).sendKeys("jsdfgh4479");
+	Thread.sleep(1000);
+	screenCapture();
+ }
+ @Test(priority=5)
+public void Validation2()throws Exception {
+	 WebDriverWait wait=new WebDriverWait(driver,10);
+	 WebElement button=wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@class='acc_creat securityCheck']")));
+	 button.click();
+	 Thread.sleep(2000);
+	 String expectedErrorMsg="SORRY,YOU HAVE APPLIED INVALID REFERRAL CODE";
+	 WebElement referror=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html[1]/body[1]/section[1]/section[1]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[6]/p[2]")));
+	 String actualErrorMsg=referror.getText();
+	 Assert.assertEquals(actualErrorMsg, expectedErrorMsg);
+	 System.out.println("ok 5");
+	 screenCapture();
+ } 
+ //register with empty fields
+ @Test(priority=6)
+ public void Singup4()throws Exception {
+	 driver.navigate().refresh();
+	 Thread.sleep(1000);
+	 driver.findElement(By.name("email")).sendKeys("");
+	 Thread.sleep(1000);
+	 driver.findElement(By.name("user_name")).sendKeys("");
+	 Thread.sleep(1000);
+	 driver.findElement(By.name("last_name")).sendKeys("");
+	 Thread.sleep(1000);
+	 driver.findElement(By.name("referal_code")).sendKeys("");
+	 Thread.sleep(1000);
+	 screenCapture();
+ }
+@Test(priority=7)
+public void Validation3()throws Exception {
+	driver.findElement(By.xpath("//input[@class='acc_creat securityCheck']")).click();
+	Thread.sleep(1000);
+	String expectedErrorMsg1="This field is required.";
+	WebElement exp=driver.findElement(By.xpath("//div[@class='col-md-8 col-lg-8 register_form_detail']//div[2]//label[1]"));
+	String actualErrorMsg1=exp.getText();
+	Assert.assertEquals(actualErrorMsg1, expectedErrorMsg1);
+	Thread.sleep(1000);
+	String expectedErrorMsg2="This field is required.";
+	WebElement exp1=driver.findElement(By.xpath("//div[3]//label[1]"));
+	String actualErrorMsg2=exp1.getText();
+ 	Assert.assertEquals(actualErrorMsg2, expectedErrorMsg2);
+    String expectedErrorMsg3="This field is required.";
+    WebElement exp2=driver.findElement(By.xpath("//div[4]//label[1]")) ;
+    String actualErrorMsg3=exp2.getText();
+    Assert.assertEquals(actualErrorMsg3, expectedErrorMsg3);
+    Thread.sleep(1000);
+ 
+}
+@Test(priority=8)
+public void Validation4() throws Exception{
+	  Assert.assertTrue(driver.findElement(By.xpath("//input[@class='acc_creat securityCheck']")).isEnabled(), "ok button is enabled");
+	  System.out.println("Ok button is enabled");
+	  String expectedErrorMsg4="PLEASE FILL OUT ALL REQUIRED (*) FIELDS .";
+	  WebElement exp3=driver.findElement(By.xpath("//div[@class='col note full_widths']//p[1]"));
+	  String actualErrorMsg4=exp3.getText();
+	  Assert.assertEquals(actualErrorMsg4, expectedErrorMsg4);
+	  System.out.println("The message is there ");
+	  Thread.sleep(1000);	
+	  String expectedErrorMsg="BY CLICKING \"CREATE ACCOUNT\" , YOU AGREE TO CABILY'S TERMS AND CONDITIONS AND PRIVACY POLICY.";
+	  WebElement exp4=driver.findElement(By.xpath("//div[@class='col term_condition full_widths']//p[contains(text(),'Cabil')]"));
+	  String actualErrorMsg=exp4.getText();
+	  Assert.assertEquals(actualErrorMsg, expectedErrorMsg);
+	  System.out.println("ok  the mesage is there");
+	  screenCapture();
+	  
+}
+
+@BeforeClass
+  public void beforeClass() {
+  }
+
+  @AfterClass
+  public void afterClass() {
+  }
+
+  @BeforeTest
+  public void beforeTest() {
+	  System.setProperty("webdriver.chrome.driver", Driverpath);
+	  driver=new ChromeDriver();
+	  driver.manage().window().maximize();
+	  driver.manage().deleteAllCookies();
+	  driver.get(baseUrl);
+	  driver.manage().timeouts().implicitlyWait(15 , TimeUnit.SECONDS);
+	  driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+	  
+	  
+  }
+
+  public  void screenCapture() throws IOException {
+	
+	  File scrFile=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+	  timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()); 
+	  screenShotName = new File("D:\\slm\\DemoTestNgProject\\screenshots\\"+timeStamp+".png");
+	  FileUtils.copyFile(scrFile, screenShotName);
+	  String filePath = screenShotName.toString();
+	  String path = "<br><img src='"+filePath+"'height='300' width='300'/><br>";
+	  Reporter.log(path);
+	   
+	  }
+  
+  
+  
+  @AfterTest
+  public void afterTest() throws Exception{
+	  Thread.sleep(2000);
+	  driver.close();
+  }
+
+}

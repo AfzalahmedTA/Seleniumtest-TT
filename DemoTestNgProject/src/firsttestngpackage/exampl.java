@@ -1,0 +1,49 @@
+package firsttestngpackage;
+
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import org.testng.annotations.BeforeTest;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+
+public class exampl {
+	public WebDriver driver;
+	public String baseUrl="https://cabily-e.zoplay.com/rider/signup?data=KzkxJiY4ODI1NjQ0MDE2&";
+	String Driverpath="C:\\Users\\user65\\Downloads\\chromedriver_win32\\chromedriver.exe";
+	String name = "acbcdefghijklmnopqrstuvwxyz";
+	SoftAssert softassert1=new SoftAssert();
+	SoftAssert softassert2=new SoftAssert();
+  @Test
+  public void f() throws Exception{
+	  driver.findElement(By.name("email")).sendKeys("diisij#ejfj(**@gmail.com");
+	  Thread.sleep(1000);
+	  driver.findElement(By.name("user_name")).sendKeys("afsal");
+	  Thread.sleep(2000);
+	  driver.findElement(By.xpath("//div[@class='overall_shades']")).clear();
+	  Thread.sleep(2000);
+	  
+	  
+  }
+  @BeforeTest
+  public void beforeTest() {
+	  System.setProperty("webdriver.chrome.driver", Driverpath);
+	  driver=new ChromeDriver();
+	  driver.manage().window().maximize();
+	  driver.manage().deleteAllCookies();
+	  driver.get(baseUrl);
+	  driver.manage().timeouts().implicitlyWait(15 , TimeUnit.SECONDS);
+	  driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+	  
+  }
+
+  @AfterTest
+  public void afterTest() {
+	  driver.close();
+  }
+
+}

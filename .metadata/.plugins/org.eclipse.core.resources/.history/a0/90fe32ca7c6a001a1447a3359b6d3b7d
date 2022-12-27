@@ -1,0 +1,24 @@
+package Logintesting;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
+import org.openqa.selenium.JavascriptExecutor;
+import org.testng.annotations.AfterTest;
+
+public class TC_01positive {
+	public WebDriver driver;
+	public String baseUrl = "http://192.168.1.16/phpmongo/admin";
+	String Driverpath = "C:\\Users\\user65\\Downloads\\chromedriver_win32\\chromedriver.exe";
+	JavascriptExecutor js = (JavascriptExecutor) driver;
+  @Test
+  public void Testcase() {
+  }
+  @BeforeTest
+  public void beforeTest() {
+  }
+
+  @AfterTest
+  public void afterTest() {
+  }
+
+}

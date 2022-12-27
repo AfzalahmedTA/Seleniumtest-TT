@@ -1,0 +1,13 @@
+package firsttestngpackage;
+
+import org.testng.annotations.Test;
+
+public class Testcase2 {
+@Test
+	
+	public void testWordPress() {
+	System.out.println("FB is working  as excpected");
+	
+	
+}
+}

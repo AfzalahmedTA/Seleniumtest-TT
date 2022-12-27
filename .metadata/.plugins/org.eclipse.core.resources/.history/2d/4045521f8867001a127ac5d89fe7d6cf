@@ -1,0 +1,23 @@
+package firsttestngpackage;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterTest;
+
+public class NewExample {
+	public WebDriver driver;//https://ecabily-testing.zoplay.com/v1.0/rider/signup?data=KzkxJiY4ODI1NjQ0MDE5&
+	public String baseUrl="https://ecabily-testing.zoplay.com/v1.0/rider/signup?data=KzkxJiY4ODI1NjQ0MDE5&";
+	String Driverpath="C:\\Users\\user65\\Downloads\\chromedriver_win32\\chromedriver.exe";
+  @Test
+  public void f() {
+  }
+  @BeforeTest
+  public void beforeTest() {
+  }
+
+  @AfterTest
+  public void afterTest() {
+  }
+
+}

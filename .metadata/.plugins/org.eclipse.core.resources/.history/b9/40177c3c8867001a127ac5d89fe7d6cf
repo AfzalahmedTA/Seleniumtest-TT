@@ -1,0 +1,39 @@
+package firsttestngpackage;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+
+public class NewExample {
+	public WebDriver driver;//https://ecabily-testing.zoplay.com/v1.0/rider/signup?data=KzkxJiY4ODI1NjQ0MDE5&
+	public String baseUrl="https://ecabily-testing.zoplay.com/v1.0/rider/signup?data=KzkxJiY4ODI1NjQ0MDE5&";
+	String Driverpath="C:\\Users\\user65\\Downloads\\chromedriver_win32\\chromedriver.exe";
+  @Test
+  public void TC_01() {
+	  driver.findElement(By.name("email")).clear();
+	  driver.findElement(By.name("email")).sendKeys(cell.getStringCellValue());
+	  Thread.sleep(1000);
+	  
+  }
+  @BeforeTest
+  public void beforeTest() {
+	  System.setProperty("webdriver.chrome.driver", Driverpath);
+	  driver=new ChromeDriver();
+	  driver.manage().window().maximize();
+	  driver.manage().deleteAllCookies();
+	  driver.get(baseUrl);
+	  driver.manage().timeouts().implicitlyWait(25 , TimeUnit.SECONDS);
+	  driver.manage().timeouts().pageLoadTimeout(50, TimeUnit.SECONDS);
+  }
+
+  @AfterTest
+  public void afterTest() {
+  }
+
+}

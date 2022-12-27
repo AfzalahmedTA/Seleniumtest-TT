@@ -1,0 +1,17 @@
+package firsttestngpackage;
+
+public class TestNGretryfailed {
+	public void test1() {
+		
+	System.out.println("iam inside in test1");
+		
+	}
+	public void test2() {
+		System.out.println("iam inside in test2");
+		
+		
+	}
+	
+	
+	
+}

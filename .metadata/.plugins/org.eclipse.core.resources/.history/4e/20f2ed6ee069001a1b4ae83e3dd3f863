@@ -1,0 +1,9 @@
+package firsttestngpackage;
+
+public class Testcase1 {
+public void testFb() {
+	
+	
+	
+}
+}

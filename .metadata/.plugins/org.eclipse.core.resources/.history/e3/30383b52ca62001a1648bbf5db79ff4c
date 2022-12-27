@@ -1,0 +1,20 @@
+package executionEngine;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class DriverScript {
+	 private static WebDriver driver = null;
+	public static void main(String[] args) throws Exception{
+		driver=new ChromeDriver();
+		// TODO Auto-generated method stub
+driver.manage().deleteAllCookies();
+driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+driver.manage().window().maximize();
+driver.get("https://cabily-e.zoplay.com/admin");
+		driver.findElement(By.name("admin_name")).sendKeys("admindemo");
+		
+		
+	}
+
+}

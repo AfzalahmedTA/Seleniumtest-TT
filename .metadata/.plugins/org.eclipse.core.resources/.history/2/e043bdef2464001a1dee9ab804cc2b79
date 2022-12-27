@@ -1,0 +1,46 @@
+package firsttestngpackage;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+
+import java.io.File;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
+
+public class Registercabily {
+	public WebDriver driver;
+	public String baseUrl="https://ecabily-testing.zoplay.com/v1.0/rider/signup?data=KzkxJiY4ODI1NjQ0MDE4&";
+	String Driverpath="C:\\Users\\user65\\Downloads\\chromedriver_win32\\chromedriver.exe";
+	HSSFWorkbook workbook;
+	HSSFSheet sheet;
+	HSSFCell cell;
+	WebDriverWait wait;
+	File src;
+	
+  @Test
+  public void f() {
+  }
+  @BeforeMethod
+  public void beforeMethod() {
+  }
+
+  @AfterMethod
+  public void afterMethod() {
+  }
+
+  @BeforeTest
+  public void beforeTest() {
+  }
+
+  @AfterTest
+  public void afterTest() {
+  }
+
+}

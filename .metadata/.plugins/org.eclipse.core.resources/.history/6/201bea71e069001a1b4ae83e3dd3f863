@@ -1,0 +1,11 @@
+package firsttestngpackage;
+
+public class Testcase1 {
+@Test
+	
+	public void testFb() {
+	
+	
+	
+}
+}

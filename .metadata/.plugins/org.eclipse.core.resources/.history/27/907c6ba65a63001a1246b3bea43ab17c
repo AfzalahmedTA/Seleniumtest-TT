@@ -1,0 +1,105 @@
+package firsttestngpackage;
+
+import org.testng.annotations.Test;
+
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.AfterMethod;
+
+public class NewTestExcel {
+	public WebDriver driver;
+	public String baseUrl="https://cabily-e.zoplay.com/admin";
+	String Driverpath="C:\\Users\\user65\\Downloads\\chromedriver_win32\\chromedriver.exe";
+	HSSFWorkbook workbook;
+	HSSFSheet sheet;
+	HSSFCell cell;
+    WebDriverWait wait=new WebDriverWait(driver,20);
+	
+  @Test
+  public void 	cabilyTestcase() throws IOException, Exception{
+	  File src=new File("D:\\Afsal\\Cabilydata.xls");
+      
+	     
+	     FileInputStream finput = new FileInputStream(src);
+	      
+	     
+	    workbook = new HSSFWorkbook(finput);
+	      
+	     
+	     sheet= workbook.getSheet("Sheet1");
+	      
+	     for(int i=8; i<=sheet.getLastRowNum(); i++)
+	     {
+	         // Import data for Email.
+	         cell = sheet.getRow(i).getCell(0);
+	         cell.setCellType(Cell.CELL_TYPE_STRING);
+	         driver.findElement(By.name("admin_name")).clear();
+	         Thread.sleep(1000);
+	         driver.findElement(By.name("admin_name")).sendKeys(cell.getStringCellValue());
+	       
+	         // Import data for password.
+	         cell = sheet.getRow(i).getCell(1);
+	         cell.setCellType(Cell.CELL_TYPE_STRING);
+	         driver.findElement(By.name("admin_password")).clear();
+	         Thread.sleep(1000);
+	         driver.findElement(By.name("admin_password")).sendKeys(cell.getStringCellValue());
+	        
+	         WebElement cablogin=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@id='admin_login_form']//input[@class='login_btn blue_lgel']")));
+	         cablogin.click();
+	         String ErrorMsg=driver.findElement(By.className("default")).getText();
+	         // Write data in the excel.
+	       FileOutputStream foutput=new FileOutputStream(src);
+	        
+                   
+	        // Create cell where data needs to be written.
+	        sheet.getRow(i).createCell(2).setCellValue(ErrorMsg);	         
+	        // finally write content
+	        workbook.write(foutput);
+	         
+	         // close the file
+	       foutput.close();
+	             
+	     }
+	  }
+	  
+  @BeforeTest
+  
+  public void beforeTest() {
+	  System.setProperty("webdriver.chrome.driver", Driverpath);
+	  driver=new ChromeDriver();
+	  driver.manage().window().maximize();
+	  driver.manage().deleteAllCookies();
+	  driver.get(baseUrl);
+	driver.manage().timeouts().implicitlyWait(15 , TimeUnit.SECONDS);
+	  driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+	  
+	  
+	  
+	  
+  }
+
+  @AfterMethod
+  public void afterTest() throws Exception{
+	  Thread.sleep(2000);
+	  driver.close();
+	  
+  }
+
+}

@@ -1,0 +1,14 @@
+package firsttestngpackage;
+import org.openqa.selenium.*;
+import org.testng.Reporter;
+import org.testng.annotations.Test;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class DemoB {
+  @Test
+  public void run() {
+  WebDriver driver=new ChromeDriver();
+ Reporter.log("The chrome browser is opened now"); 
+  driver.manage().window().maximize();
+  
+  }
+}

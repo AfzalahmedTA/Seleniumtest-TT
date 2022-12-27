@@ -1,0 +1,46 @@
+package firsttestngpackage;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class SingupcabilyEx {
+	 public WebDriver driver;
+		public String baseUrl="https://cabily-e.zoplay.com/rider/signup?data=KzkxJiY4ODI1NjQ0MDE2&";
+		String Driverpath="C:\\Users\\user65\\Downloads\\chromedriver_win32\\chromedriver.exe";
+	
+
+  @Test
+  public void f() {
+  }
+  @BeforeClass
+  public void beforeClass() {
+  }
+
+  @AfterClass
+  public void afterClass() {
+  }
+
+  @BeforeTest
+  public void beforeTest() {
+	  System.setProperty("webdriver.chrome.driver", Driverpath);
+	  driver=new ChromeDriver();
+	  driver.manage().window().maximize();
+	  driver.manage().deleteAllCookies();
+	  driver.get(baseUrl);
+	  driver.manage().timeouts().implicitlyWait(25 , TimeUnit.SECONDS);
+	  driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+	  
+	  
+	  
+  }
+
+  @AfterTest
+  public void afterTest() {
+	  driver.close();
+  }
+
+}

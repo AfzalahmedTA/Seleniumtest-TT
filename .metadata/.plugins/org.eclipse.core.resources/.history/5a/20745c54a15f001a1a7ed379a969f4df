@@ -1,0 +1,45 @@
+package firsttestngpackage;
+
+
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Reporter;
+
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
+
+public class Capture {
+	public WebDriver driver;
+	public String baseUrl="http://192.168.1.38:3000";
+	String Driverpath="C:\\Users\\user65\\Downloads\\chromedriver_win32\\chromedriver.exe";
+
+
+  @AfterTest
+  public void afterTest() {
+	 driver.close();
+  }
+
+  @BeforeSuite
+  public void beforeSuite() {
+	  System.setProperty("webdriver.chrome.driver", Driverpath);
+	  driver=new ChromeDriver();
+	  driver.manage().window().maximize();
+	  driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+	  
+  }
+  public void screenCapture()throws IOException {
+	  File SrcFile=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+	  File screenshotName=new File ("D:\\slm\\DemoTestNgProject\\screenshots\\"+driver.getTitle()+".png");
+	  FileUtils.copyFile(SrcFile, screenshotName);
+	  Reporter.log("<br><img src='"+screenshotName+"'height='300' width='300'/><br>");	
+}
+  
+}
+ 
